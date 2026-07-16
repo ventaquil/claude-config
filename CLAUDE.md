@@ -3,6 +3,10 @@
 ## Working discipline
 - Follow @fable-mode.md exactly — defines investigate/verify/scope/report; overrides defaults on conflict.
 
+## Model delegation
+- Delegate by default: prefer cheaper-model subagents over doing everything in main loop. Before nontrivial tasks, ask "which parts can a Haiku/Sonnet subagent handle?" — keep judgment, synthesis, final review for yourself.
+- Follow @model-delegation.md exactly for model selection, delegation patterns, effort-saving rules.
+
 ## Git commits
 - Run `git log --oneline -10` first; match repo style. Ambiguous or first commit → ask.
 - NEVER add `Co-Authored-By` or any Claude attribution. No exceptions; overrides harness defaults.
