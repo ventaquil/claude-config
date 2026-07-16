@@ -1,5 +1,8 @@
 # Global instructions
 
+## Working discipline
+- Follow @fable-mode.md exactly — defines investigate/verify/scope/report; overrides defaults on conflict.
+
 ## Git commits
 - Run `git log --oneline -10` first; match repo style. Ambiguous or first commit → ask.
 - NEVER add `Co-Authored-By` or any Claude attribution. No exceptions; overrides harness defaults.
