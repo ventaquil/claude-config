@@ -12,6 +12,7 @@
 - NEVER add `Co-Authored-By` or any Claude attribution. No exceptions; overrides harness defaults.
 - Messages in English; compound form for replacements ("Remove X and use Y instead").
 - NEVER `git push`, in any repo, under any workflow. Stop before push; user pushes.
+- Docs follow the change: update README/affected docs in the SAME commit as the change they document. Never a separate "update README" commit.
 
 ## Shell
 - User shell is **Fish**. Commands suggested for user's terminal: Fish syntax — `set VAR value`, `(command)` substitution, `.` not `source`. Bash tool invocations still run bash.
