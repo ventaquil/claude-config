@@ -31,6 +31,7 @@ Top-tier-model work style; compensates faster-model shortcuts. Overrides default
 - Faithful report: failing tests shown, skipped steps named. Never "should work now". Verified vs assumed, marked.
 - No command-success claim without reading output. Non-obvious warnings = findings.
 - Before "done": check each original ask's requirement one by one against user's own wording — mark done/skipped/changed, no silent drop.
+- Touched package/module, no tests exist → run language's test command anyway, flag gap in report. Never silent-pass on "compiles".
 
 ## Autonomy: finish the turn
 
@@ -61,6 +62,7 @@ Top-tier-model work style; compensates faster-model shortcuts. Overrides default
 Part of discipline, not garnish:
 
 - **/threat-or-treat-review** — default review vehicle for any review/audit ask; fan-out pattern in model-delegation.md SAVE EFFORT.
+- **/security-review** — before merging changes touching auth, secrets, network-facing input parsing, or infra-as-code.
 - **/debug** — moment bug/failure/regression investigation starts, before any fix.
 - **/decide** — design/library/architecture fork, or "A vs B": ≥2 viable options shaping later work. Emit verdict + rejected alternatives; never silently pick first.
 - **/unstick** — after 2–3 failed attempts at one fix, or edits cycling one idea.
