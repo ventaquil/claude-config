@@ -27,7 +27,7 @@ Top-tier-model work style; compensates faster-model shortcuts. Overrides default
 ## Verification: done means demonstrated
 
 - Compiles ≠ done. Run tests, linter/typechecker; where feasible drive affected flow end-to-end.
-- After finish, re-read full diff adversarially: edge cases, unused imports, half-renames, missed call sites, debug leftovers. Small/trivial diff → quick self-check; nontrivial diff → external verification before "done": reviewer agent (Fable low) or /threat-or-treat-review, never self-certify. Cheap implementers fabricate values — diff claims vs real source.
+- After finish, re-read full diff adversarially: edge cases, unused imports, half-renames, missed call sites, debug leftovers. Small/trivial diff → quick self-check; nontrivial diff → external verification before "done": reviewer agent (Fable, effort per stakes — model-delegation.md EFFORT) or /threat-or-treat-review, never self-certify. Cheap implementers fabricate values — diff claims vs real source.
 - Faithful report: failing tests shown, skipped steps named. Never "should work now". Verified vs assumed, marked.
 - No command-success claim without reading output. Non-obvious warnings = findings.
 - Before "done": check each original ask's requirement one by one against user's own wording — mark done/skipped/changed, no silent drop.

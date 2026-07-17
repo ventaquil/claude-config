@@ -15,8 +15,16 @@ Pick model + pattern + spawn sub-session. Goal: max quality/dollar, zero hangs, 
 
 - `architect` (Opus high, read-only): plan, design, trade-off verdict. → P1 advisor, P3 plan/verify-plan.
 - `developer` (Sonnet med, edits): implement per plan + tests, evidence report. → P2 worker, P3 implement/test.
-- `reviewer` (Fable low, read-only): adversarial verify/judge, confirm/refute, checks fabricated values. → P3 verify-diff, review loops. Unavailable → re-call with model=opus.
+- `reviewer` (Fable, effort per EFFORT scale, read-only): adversarial verify/judge, confirm/refute, checks fabricated values. → P3 verify-diff, review loops. Unavailable → re-call with model=opus.
 - `grunt` (Haiku low): mechanical sweeps, extract, format, triage pre-pass. Copies, never invents; caller verifies.
+
+## EFFORT (auto-scale per task; caller overrides agent frontmatter default each call)
+
+- low: routine verify, single-file diff, plan sanity check, mechanical checks, extract/format.
+- medium: multi-file diff, logic-equivalence check, nontrivial plan verify, judging output with fabrication risk.
+- high: architecture verdicts, security-sensitive changes, final gate on full branch/release, arbitrating conflicting reviews.
+- xhigh/max: rare — hardest debugging, correctness-over-cost. Never preemptive "to be safe".
+- Unsure → one level up from the cheap default, not max. Frontmatter efforts are floors/defaults, not caps.
 
 ## SPAWN MECHANICS (fix hang + lost result)
 
@@ -38,7 +46,7 @@ claude -p "$BRIEF" \
 - Parse: JSON has `.result`, `.is_error`, `.session_id`, `.num_turns`, `.total_cost_usd`. Check exit code + `.is_error` BEFORE trust `.result`. Budget blown → exit 1, `.is_error` true, `.result` null (verified 2.1.205).
 - Structured output: `--json-schema '<schema>'`.
 - Follow-up same worker: save `.session_id` → `claude -p --resume "$SID" "next"`.
-- Dials: `--max-budget-usd` cap, `--effort low|medium|high|xhigh|max` (low = grunt, high+ = advisor/orchestrator).
+- Dials: `--max-budget-usd` cap, `--effort low|medium|high|xhigh|max` — scale per EFFORT section.
 
 ## RESULT CONTRACT (mandatory)
 
