@@ -38,3 +38,6 @@
 
 ## Docker
 - Follow @docker.md exactly.
+
+## Shell scripting
+- Follow @shell-scripting.md exactly.
