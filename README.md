@@ -12,6 +12,7 @@ and a minimal statusline. Files map 1:1 to `~/.claude/`.
 | `model-delegation.md`   | Model selection + delegation patterns (P1 advisor-executor, P2 orchestrator-worker, P3 loop)                                                    |
 | `rust.md`               | Rust conventions (API guidelines, errors, testing, cargo)                                                                                       |
 | `go.md`                 | Go conventions (Effective Go, error handling, concurrency, testing)                                                                             |
+| `docker.md`             | Docker conventions (multi-stage builds, base images, layers, compose)                                                                           |
 | `agents/`               | Named subagents: `architect` (Opus, plan), `developer` (Sonnet, implement), `reviewer` (Fable, adversarial verify), `grunt` (Haiku, mechanical) |
 | `skills/`               | Workflow skills: `debug`, `decide`, `unstick`                                                                                                   |
 | `statusline-command.sh` | Statusline: `ctx 30% \| session 23% \| weekly 1%` (context + rate-limit usage)                                                                  |
