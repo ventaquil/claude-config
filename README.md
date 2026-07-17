@@ -5,15 +5,16 @@ and a minimal statusline. Files map 1:1 to `~/.claude/`.
 
 ## Layout
 
-| Path                    | Purpose                                                                                     |
-|-------------------------|---------------------------------------------------------------------------------------------|
-| `CLAUDE.md`             | Global instructions entry point — imports the files below via `@` references                 |
-| `fable-mode.md`         | Working discipline: evidence before acting, scope, verification, autonomy, communication     |
-| `model-delegation.md`   | Model selection + delegation patterns (P1 advisor-executor, P2 orchestrator-worker, P3 loop) |
-| `rust.md`               | Rust conventions (API guidelines, errors, testing, cargo)                                    |
+| Path                    | Purpose                                                                                                                                         |
+|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| `CLAUDE.md`             | Global instructions entry point — imports the files below via `@` references                                                                    |
+| `fable-mode.md`         | Working discipline: evidence before acting, scope, verification, autonomy, communication                                                        |
+| `model-delegation.md`   | Model selection + delegation patterns (P1 advisor-executor, P2 orchestrator-worker, P3 loop)                                                    |
+| `rust.md`               | Rust conventions (API guidelines, errors, testing, cargo)                                                                                       |
+| `go.md`                 | Go conventions (Effective Go, error handling, concurrency, testing)                                                                             |
 | `agents/`               | Named subagents: `architect` (Opus, plan), `developer` (Sonnet, implement), `reviewer` (Fable, adversarial verify), `grunt` (Haiku, mechanical) |
-| `skills/`               | Workflow skills: `debug`, `decide`, `unstick`                                               |
-| `statusline-command.sh` | Statusline: `ctx 30% \| session 23% \| weekly 1%` (context + rate-limit usage)               |
+| `skills/`               | Workflow skills: `debug`, `decide`, `unstick`                                                                                                   |
+| `statusline-command.sh` | Statusline: `ctx 30% \| session 23% \| weekly 1%` (context + rate-limit usage)                                                                  |
 
 ## External skills
 

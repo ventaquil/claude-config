@@ -27,6 +27,9 @@
 - Always align table columns (pipes padded with spaces), every write and edit. Exempt: Claude-facing files (compact tables, see above).
 - Line length 120 — hard limit, never wrap narrower than needed. Exempt: tables, code blocks, Claude-facing files.
 
+## Go
+- Follow @go.md exactly.
+
 ## Python
 - Use **uv** for everything: `uv venv`, `uv pip install` / `uv add`, `uvx <tool>`, `uv run script.py`, `uv run --with <pkg>` for one-offs.
 - Never bare `pip` or `python -m venv` — system Python is uv-managed, externally-managed (PEP 668); `ensurepip` venvs are broken.
