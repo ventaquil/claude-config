@@ -5,13 +5,20 @@
 
 ## Model delegation
 - Delegate by default: prefer cheaper-model subagents over doing everything in main loop. Before nontrivial tasks, ask "which parts can a Haiku/Sonnet subagent handle?" — keep judgment, synthesis, final review for yourself.
+- Multi-stage/multi-lane work → Workflow tool as the vehicle, not ad-hoc main-loop orchestration (model-delegation.md P2/P3 still shape lanes + briefs). "Use workflows" said once = standing, firefighting included: hand gathered facts to the workflow instead of finishing the diagnosis in main loop (standing instruction beats model-delegation.md size exemptions).
 - Follow @model-delegation.md exactly for model selection, delegation patterns, effort-saving rules.
 
 ## Git commits
 - Run `git log --oneline -10` first; match repo style. Ambiguous or first commit → ask.
+- One commit = one concern, history linear (no merge commits, no fixup/undo pairs). Dependency/library change, tooling change, packaging = separate commits. Message never a placeholder.
+- Stage explicit paths per commit — never `git add -A`/`-a` (sweeps unrelated + untracked files).
+- Unpushed commits: fix for a defect one of them introduced → fold into the introducing commit, not a follow-up; a commit must not edit code a later commit deletes — order removals first. History rewrite of >1 commit → confirm target granularity with the user, backup ref first.
+- Never end a turn offering to commit ("say the word"): commit when the task asks or clearly implies landing the work (user hold or ask-rule above wins), else state plainly that changes are left uncommitted and why.
 - NEVER add `Co-Authored-By` or any Claude attribution. No exceptions; overrides harness defaults.
 - Messages in English; compound form for replacements ("Remove X and use Y instead").
 - NEVER `git push`, in any repo, under any workflow. Stop before push; user pushes.
+- Assistant working files (briefs, goals, plans, scratch) stay untracked: `.git/info/exclude`, never the shared `.gitignore`, never their own commit. Found tracked → flag, don't carry forward.
+- `.gitignore` is the user's: never edit unasked — cleaning a tree = remove/relocate files, not hide them. Own mistake already on the remote → propose full remediation up front (history rewrite, author/committer dates preserved); user runs the push.
 - Docs follow the change: update README/affected docs in the SAME commit as the change they document. Never a separate "update README" commit.
 
 ## Shell

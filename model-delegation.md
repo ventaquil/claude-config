@@ -40,7 +40,7 @@ claude -p "$BRIEF" \
   < /dev/null > "$RESULT.json" 2> "$RESULT.err"
 ```
 
-- HANG 1: no `--permission-mode` → waits forever for approval. Spawn modes: `dontAsk` (deny+continue), `acceptEdits`, `bypassPermissions` (sandbox only). `auto`/`manual`/`plan` exist, not for headless. Narrow: `--allowedTools "Bash(git *) Edit Read"`.
+- HANG 1: no `--permission-mode` → waits forever for approval. Spawn modes: `dontAsk` (deny+continue), `acceptEdits`, `bypassPermissions` (sandbox only). `auto`/`manual`/`plan` exist, not for headless. Narrow: `--allowedTools "Bash(git log *) Bash(git diff *) Edit Read"` (`Bash(git *)` would grant checkout/push).
 - HANG 2: no stdin redirect → waits on pipe. ALWAYS `< /dev/null`.
 - LOST RESULT: `--bg` detaches → result in `claude agents`, not stdout. NEVER `--bg` for deliverable work. Parallel = foreground `cmd & ... wait`, each own file.
 - LOST WORKFLOW: background Workflow run can lose its completion record across a session boundary/limit hit. Save runId immediately on spawn; resume via `resumeFromRunId`, don't restart from scratch.
@@ -55,6 +55,8 @@ claude -p "$BRIEF" \
 2. Parent ALWAYS reads + verifies after `wait`. No fire-and-forget.
 3. Brief ends: "Final message = ONLY deliverable (or JSON per schema). No commentary."
 4. Worker hard-fail → exit with partial + blocker note. Parent decides re-brief vs abort.
+5. Blast radius in EVERY brief: exact writable paths, everything else read-only. No delete/move outside them, no `git checkout`/`switch` in the user's tree (branch work → own throwaway worktree), no push or remote write — CLAUDE.md push ban binds workers too. Enforce mechanically (agent `tools:` list, `--allowedTools`/deny rules); prose alone doesn't hold.
+6. Parent verifies after every run, beyond the result file: HEAD unchanged, remote refs unmoved, untracked AND ignored paths intact — `git status` can't show what a worker destroyed there.
 
 ## P1: ADVISOR-EXECUTOR
 
@@ -72,6 +74,7 @@ Use: single long task, mostly routine, rare hard decision.
 - Orchestrator = Opus. Lifecycle loop: decompose → brief → spawn (template!) → wait → read files → merge → judge. Re-plan ≤ 2× on blockers.
 - Workers = Sonnet `--effort low|medium` (Haiku if trivial). Own loop, narrow context, own done-criterion, own result file. No cross-talk.
 - Fan-out ONLY independent subtasks: `spawn & spawn & wait` → read ALL files. Spawn returns before its result (background Agent/Workflow) → don't idle: do independent main-loop work meanwhile, collect on notification; blocking spawn or out-of-harness `claude -p` = foreground `wait`. Either way every result read + verified. Dependent chain = single Sonnet + advisor.
+- Independent = disjoint files AND disjoint runtime. Shared compose project, ports, DB, test runner, dev server, working tree, or host CPU/RAM for heavy builds → dependent: serialize, or cap at 1 workflow / ≤3 agents; read-only analysis fan-out unaffected. Never spawn a stage whose input another running stage still rewrites; never measure timing or gate on tests while another agent writes — contention reads as flaky tests and false diagnoses. New requirement touching files a running fan-out owns → stop or re-brief that run, don't hand-patch around it.
 - Brief self-contained: inputs, constraints, output schema, result path.
 - Merge: verify contracts, resolve conflicts, one integration check. No re-do worker work.
 
@@ -79,7 +82,7 @@ Use: 2+ independent chunks (multi-file refactor, multi-doc research, parallel an
 
 ## P3: PLAN-VERIFY-IMPLEMENT-TEST LOOP
 
-- Loop N iters (user picks, default 3-5): plan(`architect` or Sonnet) → verify-plan(`reviewer`, low) → implement(`developer`; `grunt` only if trivial) → test(`developer`) → verify-diff(`reviewer`, med).
+- Loop N iters (user picks, default 3-5; N = ceiling — stop once verify-diff passes): plan(`architect` or Sonnet) → verify-plan(`reviewer`, low) → implement(`developer`; `grunt` only if trivial) → test(`developer`) → verify-diff(`reviewer`, med).
 - Commit atomically per verified iteration. Close with threat-or-treat-review on full branch.
 - Cheap implementer (Haiku esp.) can fabricate values (invented version/config not in repo) — verify-diff step must diff against real source, not trust implementer's claim.
 
