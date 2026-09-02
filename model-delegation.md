@@ -9,7 +9,7 @@ Pick model + pattern + spawn sub-session. Goal: max quality/dollar, zero hangs, 
 | Haiku | triage, classify, extract, format, glue | multi-step reasoning, ambiguity | very low | grunt, filter, route, pre-pass |
 | Sonnet | code, refactor, test, docs, tool loop | novel architecture, hard debug | low-mid | default worker/executor. 90% tasks |
 | Opus | hard reasoning, plan, architecture, gnarly bug, security, judge | grunt = waste | high | default advisor/orchestrator. May loop if task hard end-to-end |
-| Fable | top synthesis, hardest trade-off, arbitrate | weekly limits, disabled soon | max, rationed | Rationed but routine verify/judge step. Unavailable → silent Opus fallback |
+| Fable | top synthesis, hardest trade-off, arbitrate; gains largest at high effort | weekly limits, disabled soon | max at high; low often cost-competitive with Opus/Sonnet, scores higher | Rationed but routine verify/judge step. Unavailable → silent Opus fallback |
 
 ## AGENTS (named, `~/.claude/agents/`, call via Agent tool subagent_type)
 
@@ -20,11 +20,12 @@ Pick model + pattern + spawn sub-session. Goal: max quality/dollar, zero hangs, 
 
 ## EFFORT (auto-scale per task; caller overrides agent frontmatter default each call)
 
-- low: routine verify, single-file diff, plan sanity check, mechanical checks, extract/format.
+- low: routine verify, single-file diff, plan sanity check, mechanical checks, extract/format. Low reads/searches less, answers from memory more — brief names exact files/commands to read, else raise that call to medium.
 - medium: multi-file diff, logic-equivalence check, nontrivial plan verify, judging output with fabrication risk.
 - high: architecture verdicts, security-sensitive changes, final gate on full branch/release, arbitrating conflicting reviews.
-- xhigh/max: rare — hardest debugging, correctness-over-cost. Never preemptive "to be safe".
+- xhigh/max: rare — hardest debugging, correctness-over-cost. Never preemptive "to be safe". Long deliverable (full doc/file rewrite, big table/dataset) → `high`: xhigh/max drafts the whole output in reasoning, then writes it again — double length, no gain. Forced higher → brief says: reason in reasoning, write the output once.
 - Unsure → one level up from the cheap default, not max. Frontmatter efforts are floors/defaults, not caps.
+- Effort names ≠ same thinking across models; a level tuned on one model doesn't transfer — recalibrate per model+task.
 
 ## SPAWN MECHANICS (fix hang + lost result)
 
@@ -70,7 +71,7 @@ Use: single long task, mostly routine, rare hard decision.
 
 - Orchestrator = Opus. Lifecycle loop: decompose → brief → spawn (template!) → wait → read files → merge → judge. Re-plan ≤ 2× on blockers.
 - Workers = Sonnet `--effort low|medium` (Haiku if trivial). Own loop, narrow context, own done-criterion, own result file. No cross-talk.
-- Fan-out ONLY independent subtasks: `spawn & spawn & wait` → read ALL files. Dependent chain = single Sonnet + advisor.
+- Fan-out ONLY independent subtasks: `spawn & spawn & wait` → read ALL files. Spawn returns before its result (background Agent/Workflow) → don't idle: do independent main-loop work meanwhile, collect on notification; blocking spawn or out-of-harness `claude -p` = foreground `wait`. Either way every result read + verified. Dependent chain = single Sonnet + advisor.
 - Brief self-contained: inputs, constraints, output schema, result path.
 - Merge: verify contracts, resolve conflicts, one integration check. No re-do worker work.
 
@@ -103,4 +104,5 @@ Use: perf/refactor work user wants run semi-autonomously to convergence.
 - `--max-budget-usd` EVERY spawn: grunt 1-2, worker 3-5, advisor/orchestrator 10. Unbounded = leak.
 - No advisor/orchestrator for < 5 min task.
 - Fable: batch questions, one call, structured answer. Never burn quota on Opus-grade work.
+- Fable brief phrasing avoids safeguard false positives (refusal = lost result): "any bugs here?" not "does this compile?"; obscure language → attach its docs; no base64 tool output in brief or context.
 - Review/audit task → threat-or-treat-review skill by default: fan out per concern area (P2), adversarial confirm/refute before reporting a finding.
