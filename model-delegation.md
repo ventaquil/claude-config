@@ -57,6 +57,7 @@ claude -p "$BRIEF" \
 4. Worker hard-fail → exit with partial + blocker note. Parent decides re-brief vs abort.
 5. Blast radius in EVERY brief: exact writable paths, everything else read-only. No delete/move outside them, no `git checkout`/`switch` in the user's tree (branch work → own throwaway worktree), no push or remote write — CLAUDE.md push ban binds workers too. Enforce mechanically (agent `tools:` list, `--allowedTools`/deny rules); prose alone doesn't hold.
 6. Parent verifies after every run, beyond the result file: HEAD unchanged, remote refs unmoved, untracked AND ignored paths intact — `git status` can't show what a worker destroyed there.
+7. Merged worker edits → inspect the real diff, not the worker's claim: `git diff --stat` (binary path shows `Bin`, `--numstat` shows `-`) plus integrity check — no text file turned binary, no raw control/non-printable bytes, encoding intact. Tests, typecheck, lint, build can all pass over corrupted bytes.
 
 ## P1: ADVISOR-EXECUTOR
 

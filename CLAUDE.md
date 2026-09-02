@@ -35,6 +35,9 @@
 - Always align table columns (pipes padded with spaces), every write and edit. Exempt: Claude-facing files (compact tables, see above).
 - Line length 120 — hard limit, never wrap narrower than needed. Exempt: tables, code blocks, Claude-facing files.
 
+## Tooling
+- Telemetry/analytics/usage reporting OFF for every tool, framework, CLI, package manager you set up (Astro, Next, Turbo, Nx, yarn, Homebrew, dotnet, Gatsby…): `DO_NOT_TRACK=1` plus that tool's own opt-out (env var, config key, or `<tool> telemetry disable`). Set in project config + the build/CI/Dockerfile stage — holds for everyone, not just a per-user file. Existing project's CI/Dockerfile → raise it, don't edit as a side effect.
+
 ## Go
 - Follow @go.md exactly.
 
@@ -49,3 +52,6 @@
 
 ## Shell scripting
 - Follow @shell-scripting.md exactly.
+
+## Frontend
+- Follow @frontend.md exactly.

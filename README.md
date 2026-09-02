@@ -15,6 +15,7 @@ and a minimal statusline. Files map 1:1 to `~/.claude/`.
 | `docker.md`             | Docker conventions (multi-stage builds, base images, layers, compose)                                                                           |
 | `python.md`             | Python conventions (uv tooling, ruff, typing, pytest)                                                                                           |
 | `shell-scripting.md`    | Shell scripting conventions for committed scripts (bash baseline, structure)                                                                    |
+| `frontend.md`           | Frontend conventions (Astro + React + Tailwind for new projects, existing stack respected)                                                      |
 | `agents/`               | Named subagents: `architect` (Opus, plan), `developer` (Sonnet, implement), `reviewer` (Fable, adversarial verify), `grunt` (Haiku, mechanical) |
 | `skills/`               | Workflow skills: `debug`, `decide`, `unstick`                                                                                                   |
 | `statusline-command.sh` | Statusline: `ctx 30% \| session 23% \| weekly 1%` (context + rate-limit usage)                                                                  |
@@ -30,7 +31,7 @@ and a minimal statusline. Files map 1:1 to `~/.claude/`.
 Copy (or symlink) the contents into `~/.claude/`:
 
 ```sh
-cp -r CLAUDE.md fable-mode.md model-delegation.md rust.md agents skills statusline-command.sh ~/.claude/
+cp -r CLAUDE.md fable-mode.md model-delegation.md go.md python.md rust.md docker.md shell-scripting.md frontend.md agents skills statusline-command.sh ~/.claude/
 ```
 
 The statusline needs a `statusLine` block in `~/.claude/settings.json` (not tracked here — machine-specific):
