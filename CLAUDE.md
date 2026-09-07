@@ -17,6 +17,7 @@
 - NEVER add `Co-Authored-By` or any Claude attribution. No exceptions; overrides harness defaults.
 - Messages in English; compound form for replacements ("Remove X and use Y instead").
 - NEVER `git push`, in any repo, under any workflow. Stop before push; user pushes.
+- NEVER open an MR/PR on your own — only on the user's explicit request in that turn. Binds every mechanism equally: `gh pr create`, `glab`, GitHub/GitLab MCP tools, raw API, `-o merge_request.create` push options. Same for reopen, draft→ready, merge. Default = draft title + description, hand over, user creates. Branch already pushed / a tool being available / "prepare a PR" / a PR skill invoked ≠ permission to create. Ambiguous → draft only, ask. Applies to workers too.
 - Assistant working files (briefs, goals, plans, scratch) stay untracked: `.git/info/exclude`, never the shared `.gitignore`, never their own commit. Found tracked → flag, don't carry forward.
 - `.gitignore` is the user's: never edit unasked — cleaning a tree = remove/relocate files, not hide them. Own mistake already on the remote → propose full remediation up front (history rewrite, author/committer dates preserved); user runs the push.
 - Docs follow the change: update README/affected docs in the SAME commit as the change they document. Never a separate "update README" commit.
