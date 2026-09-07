@@ -17,7 +17,7 @@ and a minimal statusline. Files map 1:1 to `~/.claude/`.
 | `shell-scripting.md`    | Shell scripting conventions for committed scripts (bash baseline, structure)                                                                    |
 | `frontend.md`           | Frontend conventions (Astro + React + Tailwind for new projects, existing stack respected)                                                      |
 | `agents/`               | Named subagents: `architect` (Opus, plan), `developer` (Sonnet, implement), `reviewer` (Fable, adversarial verify), `grunt` (Haiku, mechanical) |
-| `skills/`               | Workflow skills: `debug`, `decide`, `unstick`                                                                                                   |
+| `skills/`               | Workflow skills: `debug`, `decide`, `pr-mr`, `unstick`                                                                                          |
 | `statusline-command.sh` | Statusline: `ctx 30% \| session 23% \| weekly 1%` (context + rate-limit usage)                                                                  |
 
 ## External skills
