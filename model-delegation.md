@@ -9,13 +9,13 @@ Pick model + pattern + spawn sub-session. Goal: max quality/dollar, zero hangs, 
 | Haiku | triage, classify, extract, format, glue | multi-step reasoning, ambiguity | very low | grunt, filter, route, pre-pass |
 | Sonnet | code, refactor, test, docs, tool loop | novel architecture, hard debug | low-mid | default worker/executor. 90% tasks |
 | Opus | hard reasoning, plan, architecture, gnarly bug, security, judge | grunt = waste | high | default advisor/orchestrator. May loop if task hard end-to-end |
-| Fable | top synthesis, hardest trade-off, arbitrate; gains largest at high effort | weekly limits, disabled soon | max at high; low often cost-competitive with Opus/Sonnet, scores higher | Rationed but routine verify/judge step. Unavailable → silent Opus fallback |
+| Fable | top synthesis, hardest trade-off, arbitrate; gains largest at high effort | weekly limits, disabled soon | max at high; low often cost-competitive with Opus/Sonnet, scores higher | HARD weekly limit → Opus for every verify/judge/arbitrate step. Fable only on explicit user ask or to tie-break conflicting Opus verdicts. Unavailable → silent Opus fallback |
 
 ## AGENTS (named, `~/.claude/agents/`, call via Agent tool subagent_type)
 
 - `architect` (Opus high, read-only): plan, design, trade-off verdict. → P1 advisor, P3 plan/verify-plan.
 - `developer` (Sonnet med, edits): implement per plan + tests, evidence report. → P2 worker, P3 implement/test.
-- `reviewer` (Fable, effort per EFFORT scale, read-only): adversarial verify/judge, confirm/refute, checks fabricated values. → P3 verify-diff, review loops. Unavailable → re-call with model=opus.
+- `reviewer` (Opus default, effort per EFFORT scale, read-only): adversarial verify/judge, confirm/refute, checks fabricated values. → P3 verify-diff, review loops. model=fable only on explicit user ask or Opus tie-break (weekly limit).
 - `grunt` (Haiku low): mechanical sweeps, extract, format, triage pre-pass. Copies, never invents; caller verifies.
 
 ## EFFORT (auto-scale per task; caller overrides agent frontmatter default each call)
@@ -62,7 +62,7 @@ claude -p "$BRIEF" \
 ## P1: ADVISOR-EXECUTOR
 
 - Executor = Sonnet. Main loop, all turns, all tools.
-- Advisor = `architect` agent (Opus `--effort high`), or `reviewer` (Fable) directly for routine verify/judge. On-demand spawn.
+- Advisor = `architect` agent (Opus `--effort high`), or `reviewer` (Opus) directly for routine verify/judge. On-demand spawn.
 - Call when: stuck 2+ tries, irreversible action, design fork, result smells wrong.
 - Advisor gets compressed problem + min context, NOT transcript. May run short grounding loop: cap ~5 tool calls + budget, then answer.
 - Returns short directive advice per contract.
@@ -92,7 +92,7 @@ Use: perf/refactor work user wants run semi-autonomously to convergence.
 ## SELECT
 
 1. Cheapest plausible first. Escalate on fail, never preemptive.
-2. Ladder Haiku → Sonnet → Opus. Fable off-ladder: direct dispatch for routine verify/judge, silent Opus fallback if unavailable.
+2. Ladder Haiku → Sonnet → Opus. Fable off-ladder, hard weekly limit: never a default for any step; dispatch only on explicit user ask or to tie-break conflicting Opus verdicts; silent Opus fallback if unavailable.
 3. Expensive loops SHORT: Opus plans/verifies/debugs, never types boilerplate. Cheap types, expensive thinks. Top model doing 20+ mechanical edits itself = delegate, don't push through.
 4. One task = one pattern. Mutation → P2 re-plan or P1 stop + re-pick.
 5. Unsure: routine + hard moments → P1. Parallel → P2. Iterative converge-to-done → P3. Neither → plain Sonnet, no spawns.

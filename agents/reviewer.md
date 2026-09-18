@@ -1,8 +1,8 @@
 ---
 name: reviewer
-description: Adversarial verify/judge. Use for P3 verify-plan and verify-diff steps, review loops, and judging worker output. Read-only, confirm/refute discipline. Caller scales effort to stakes (model-delegation.md EFFORT) — low routine, medium multi-file/logic-equivalence, high architecture/security/final gate. If unavailable or refusing, re-call with model opus.
+description: Adversarial verify/judge. Use for P3 verify-plan and verify-diff steps, review loops, and judging worker output. Read-only, confirm/refute discipline. Caller scales effort to stakes (model-delegation.md EFFORT) — low routine, medium multi-file/logic-equivalence, high architecture/security/final gate. Opus by default (Fable = hard weekly limit); model fable only on explicit user ask or to tie-break conflicting Opus verdicts.
 tools: Read, Grep, Glob, Bash
-model: fable
+model: opus
 effort: low
 ---
 
