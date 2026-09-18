@@ -11,8 +11,8 @@
 ## Git commits
 - Run `git log --oneline -10` first; match repo style. Ambiguous or first commit → ask.
 - One commit = one concern, history linear (no merge commits, no fixup/undo pairs). Dependency/library change, tooling change, packaging = separate commits. Message never a placeholder.
-- Stage explicit paths per commit — never `git add -A`/`-a` (sweeps unrelated + untracked files).
-- Unpushed commits: fix for a defect one of them introduced → fold into the introducing commit, not a follow-up; a commit must not edit code a later commit deletes — order removals first. History rewrite of >1 commit → confirm target granularity with the user, backup ref first.
+- Stage explicit paths per commit — never `git add -A`/`-a`/`.` (sweeps unrelated + untracked). Every commit: `git diff --cached --name-only` vs intended paths, mismatch → unstage. Soft-reset rebuild — later commits' files sit loose where a blanket add catches them: reset index between commits, diff each about-to-be-committed tree against the original commit's tree.
+- Unpushed commits: fix for a defect one of them introduced → fold into the introducing commit, not a follow-up; a commit must not edit code a later commit deletes — order removals first. History rewrite of >1 commit → confirm target granularity with the user, backup ref first; rewrite verified → ask keep-or-delete it, never delete unasked, never skip creating one to dodge the question.
 - Never end a turn offering to commit ("say the word"): commit when the task asks or clearly implies landing the work (user hold or ask-rule above wins), else state plainly that changes are left uncommitted and why.
 - NEVER add `Co-Authored-By` or any Claude attribution. No exceptions; overrides harness defaults.
 - Messages in English; compound form for replacements ("Remove X and use Y instead").

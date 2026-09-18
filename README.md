@@ -40,6 +40,26 @@ The statusline needs a `statusLine` block in `~/.claude/settings.json` (not trac
 "statusLine": { "type": "command", "command": "bash ~/.claude/statusline-command.sh" }
 ```
 
+`~/.claude/settings.json` (also untracked, machine-specific) should additionally carry a `permissions.deny` block that
+mechanically enforces the git rules in `CLAUDE.md`. The prose there bans `git push` and sweep-staging, but a low-effort
+pass can skip prose; a deny rule cannot. Rules match a command prefix on word boundaries, so combined or relocated
+flags (`git commit -am`, `git -C <dir> push`) still get through — the prose rules stay the backstop for those.
+
+```json
+"permissions": {
+  "deny": [
+    "Bash(git push:*)",
+    "Bash(git add -A:*)",
+    "Bash(git add --all:*)",
+    "Bash(git add .:*)",
+    "Bash(git commit -a:*)",
+    "Bash(git commit --all:*)",
+    "mcp__github__push_files",
+    "mcp__github__create_or_update_file"
+  ]
+}
+```
+
 ## Conventions
 
 Instruction files are deliberately caveman-compressed (terse lines over prose) — keep new rules in the same style;
