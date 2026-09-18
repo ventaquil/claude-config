@@ -6,6 +6,7 @@
 ## Model delegation
 - Delegate by default: prefer cheaper-model subagents over doing everything in main loop. Before nontrivial tasks, ask "which parts can a Haiku/Sonnet subagent handle?" — keep judgment, synthesis, final review for yourself.
 - Multi-stage/multi-lane work → Workflow tool as the vehicle, not ad-hoc main-loop orchestration (model-delegation.md P2/P3 still shape lanes + briefs). "Use workflows" said once = standing, firefighting included: hand gathered facts to the workflow instead of finishing the diagnosis in main loop (standing instruction beats model-delegation.md size exemptions).
+- Instruction artifacts models execute (agent defs, skills, rule files, subagent briefs, system prompts, tool descriptions, judge rubrics) → delegate to `prompt-writer`; main loop writes the brief, verifies the result.
 - Follow @model-delegation.md exactly for model selection, delegation patterns, effort-saving rules.
 
 ## Git commits

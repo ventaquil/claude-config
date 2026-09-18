@@ -17,6 +17,7 @@ Pick model + pattern + spawn sub-session. Goal: max quality/dollar, zero hangs, 
 - `developer` (Sonnet med, edits): implement per plan + tests, evidence report. → P2 worker, P3 implement/test.
 - `reviewer` (Opus default, effort per EFFORT scale, read-only): adversarial verify/judge, confirm/refute, checks fabricated values. → P3 verify-diff, review loops. model=fable only on explicit user ask or Opus tie-break (weekly limit).
 - `grunt` (Haiku low): mechanical sweeps, extract, format, triage pre-pass. Copies, never invents; caller verifies.
+- `prompt-writer` (Opus high, edits): authors LLM-facing artifacts — system prompts, agent defs, SKILL.md, rule files, subagent briefs, tool descriptions, few-shot sets, judge rubrics; grounds in sibling artifacts, adapts wording to the target model/effort's failure modes, BLOCKER instead of inventing. → instruction/prompt authoring + rewrite tasks.
 
 ## EFFORT (auto-scale per task; caller overrides agent frontmatter default each call)
 
