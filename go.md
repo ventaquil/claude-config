@@ -17,6 +17,7 @@ Idiomatic Go, Effective Go + Google Go Style Guide. Correctness > any rule here;
 - No naked `return err` up a stack of more than one frame without adding context at the boundary that has it (function name, key input). Bubbling the exact same unwrapped error through 3+ layers loses where it happened.
 - No `panic` outside `main`/`init`/truly-impossible invariant violations (e.g. hardcoded regex `MustCompile`). Library code returns errors; panic in a library is a bug, not a strategy.
 - Don't ignore errors with `_`; if genuinely safe to ignore, comment why.
+- Guard clauses: separate `if … { return err }` blocks, never `else if` after a returning body (revive `indent-error-flow`). Guards bounding the SAME field/value (e.g. `< 0` then `> max`) sit adjacent with no blank line; a blank line separates guards on different fields.
 
 ```go
 func loadConfig(path string) (*Config, error) {
