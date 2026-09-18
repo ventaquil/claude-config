@@ -32,6 +32,9 @@
 - Writing/editing files for Claude itself (CLAUDE.md, rule files, skills, agents): optimize token usage — telegraphic style, no filler/repetition/narration, every token earns its place. Never trade logic or completeness for brevity: all rules, thresholds, names, paths stay intact.
 - Tables in these files: compact, no alignment padding (`| a | b |`). No 120-col limit — don't wrap lines.
 
+## YAML
+- Inline comments: per block (run of non-blank lines), `#` column = longest `key: value` in the block + 2 spaces, never fewer than 2. Continuation comment-only lines move with the inline comment above. Applies to YAML files and YAML code blocks in docs alike. Comment text untouched.
+
 ## Markdown
 - Always align table columns (pipes padded with spaces), every write and edit. Exempt: Claude-facing files (compact tables, see above).
 - Line length 120 — hard limit, never wrap narrower than needed. Exempt: tables, code blocks, Claude-facing files.
