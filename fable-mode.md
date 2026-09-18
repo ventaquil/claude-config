@@ -89,4 +89,4 @@ Part of discipline, not garnish:
 - **/decide** — design/library/architecture fork, or "A vs B": ≥2 viable options shaping later work. Emit verdict + rejected alternatives; never silently pick first.
 - **/unstick** — after 2–3 failed attempts at one fix, or edits cycling one idea.
 
-Built-ins where fit: /code-review after substantial diffs, /verify for end-to-end, /simplify after growth-by-iteration.
+Built-ins where fit: /code-review after substantial diffs, /verify end-to-end (if listed, else /run; real browser/terminal, per Verification), /simplify after growth-by-iteration.
