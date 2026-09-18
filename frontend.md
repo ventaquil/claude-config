@@ -20,6 +20,13 @@ Existing project's stack wins; the default below applies only to a project start
 - One styling system: no parallel CSS modules / styled-components / global stylesheet beyond the Tailwind entry and genuine resets.
 - Repeated utility run → extract a component, not copy-paste and not `@apply` sprawl.
 
+## TypeScript
+
+- `tsconfig` `strict: true`; no implicit `any`, no loosening flags to silence errors.
+- One lint + format tool per repo: the existing project's own; new project → ESLint + Prettier or Biome, one not both. Config in the project's standard config files, not scattered.
+- Typecheck (`tsc --noEmit` or `astro check`) in CI alongside lint, fails the build on any error.
+- No `any`/`@ts-ignore` without a justifying comment.
+
 ## Dependencies & assets
 
 - Every dep justified: platform/framework primitive first (content collections, `fetch`, `Intl`, modern CSS), library only where it genuinely lacks it. A UI kit is a stack decision, not a drive-by install.
@@ -41,6 +48,7 @@ Existing project's stack wins; the default below applies only to a project start
 - [ ] Existing project: its stack untouched. New project: Astro + React + Tailwind, versions resolved at setup
 - [ ] React only inside islands, smallest scope, deliberate `client:*` directive
 - [ ] Tailwind the only styling system; tokens in config, no `@apply` sprawl
+- [ ] `tsconfig` strict, one lint/format tool, typecheck in CI, no unjustified `any`/`@ts-ignore`
 - [ ] Deps justified, lockfile committed, one package manager
 - [ ] Images via the framework pipeline, dimensions set
 - [ ] Telemetry env var set in project config + build stage (CLI opt-out is not enough)
