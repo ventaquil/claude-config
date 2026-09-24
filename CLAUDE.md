@@ -1,13 +1,13 @@
 # Global instructions
 
 ## Working discipline
-- Follow @fable-mode.md exactly — defines investigate/verify/scope/report; overrides defaults on conflict.
+- Follow @fable-mode.md — defines investigate/verify/scope/report; overrides defaults on conflict.
 
 ## Model delegation
-- Delegate by default: prefer cheaper-model subagents over doing everything in main loop. Before nontrivial tasks, ask "which parts can a Haiku/Sonnet subagent handle?" — keep judgment, synthesis, final review for yourself.
+- Delegate large, genuinely independent or bulk-mechanical work to cheaper-model subagents (Haiku/Sonnet); work finishable in a handful of tool calls stays in main loop (instruction artifacts excepted — `prompt-writer` bullet below wins). Never spawn just to re-check your own work — exceptions: fable-mode.md Verification final gate, model-delegation.md P1 advisor triggers and P3 verify steps. Keep judgment + synthesis for yourself; final review = own adversarial re-read + that gate.
 - Multi-stage/multi-lane work → Workflow tool as the vehicle, not ad-hoc main-loop orchestration (model-delegation.md P2/P3 still shape lanes + briefs). "Use workflows" said once = standing, firefighting included: hand gathered facts to the workflow instead of finishing the diagnosis in main loop (standing instruction beats model-delegation.md size exemptions).
 - Instruction artifacts models execute (agent defs, skills, rule files, subagent briefs, system prompts, tool descriptions, judge rubrics) → delegate to `prompt-writer`; main loop writes the brief, verifies the result.
-- Follow @model-delegation.md exactly for model selection, delegation patterns, effort-saving rules.
+- Follow @model-delegation.md for model selection, delegation patterns, effort-saving rules.
 
 ## Git commits
 - Run `git log --oneline -10` first; match repo style. Ambiguous or first commit → ask.
