@@ -6,7 +6,7 @@ Idiomatic Python + PEP 8. Correctness > any rule here; comment deviations.
 
 - Use **uv** for everything: `uv venv`, `uv pip install` / `uv add`, `uvx <tool>`, `uv run script.py`, `uv run --with <pkg>` for one-offs.
 - Never bare `pip` or `python -m venv` — system Python is uv-managed, externally-managed (PEP 668); `ensurepip` venvs are broken.
-- CI: install uv (`astral-sh/setup-uv` or install script), run tools via `uvx` with pinned versions (e.g. `uvx ruff@0.15.20 check .`).
+- CI: install uv (`astral-sh/setup-uv` or install script), run tools via `uvx` with pinned versions (e.g. `uvx ruff@<version> check .`, version resolved from PyPI at setup, never from memory).
 
 ## Lint + Format: ruff
 

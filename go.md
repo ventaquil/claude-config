@@ -68,7 +68,6 @@ func fetchAll(ctx context.Context, ids []string) ([]*Item, error) {
     g, ctx := errgroup.WithContext(ctx)
     items := make([]*Item, len(ids))
     for i, id := range ids {
-        i, id := i, id
         g.Go(func() error {
             item, err := fetchOne(ctx, id)
             if err != nil {
@@ -112,7 +111,6 @@ func TestParse(t *testing.T) {
         {name: "non-numeric", input: "abc", wantErr: true},
     }
     for _, tt := range tests {
-        tt := tt
         t.Run(tt.name, func(t *testing.T) {
             t.Parallel()
             got, err := Parse(tt.input)

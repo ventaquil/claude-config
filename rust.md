@@ -21,7 +21,9 @@ Pub fields only on invariant-free data records (config/DTO, clap derive structs)
 pub struct RateLimiter { tokens: f64, capacity: f64 }
 
 impl RateLimiter {
+    #[must_use]
     pub fn new(capacity: f64) -> Self { Self { tokens: capacity, capacity } }
+    #[must_use]
     pub fn tokens(&self) -> f64 { self.tokens }
     #[must_use]
     pub fn try_consume(&mut self, cost: f64) -> bool { /* checks invariant */ }
@@ -112,7 +114,7 @@ For repeated impl *shape* across types — one `macro_rules!` splicing a body in
 - Unit: `#[cfg(test)] mod tests` beside code, no `test_` prefix. Integration: `tests/`, pub API only, all accepted input types; names `{entry_point}_{scenario}`.
 - Fuzz targets (cargo-fuzz + `arbitrary` behind `fuzzing` feature) for algorithmic/parsing crates.
 - Benchmarks: `criterion`.
-- CI: lint job (fmt + clippy) gates test matrix OS × {MSRV, stable, nightly}; trigger paths filtered to `src/**`, `tests/**`, `Cargo.toml`.
+- CI: lint job (fmt + clippy) gates test matrix OS × {MSRV, stable, nightly}; trigger paths filtered to what the jobs read: `**/src/**`, `**/tests/**`, `**/benches/**`, `**/build.rs`, `**/Cargo.toml`, `**/Cargo.lock`, `rustfmt.toml`, `clippy.toml`, the workflow file.
 
 ## Docs
 
@@ -133,6 +135,7 @@ use_field_init_shorthand = true
 match_block_trailing_comma = true
 ```
 
+- `group_imports`/`hex_literal_case` nightly-only (stable rustfmt warns + ignores) → CI runs `cargo +nightly fmt --check`.
 - `#[rustfmt::skip]` ok on hand-aligned constant tables; never to dodge lints.
 - Clippy in CI, `--all-targets --all-features`; deny ≥ `clippy::cargo`, prefer `-D warnings`. Scoped `#[allow]` + reason; crate-root `#[allow]` only for genuinely crate-wide lints.
 - `#![forbid(unsafe_code)]` default. Unavoidable `unsafe`: isolated module + `// SAFETY:` per block.
@@ -141,7 +144,7 @@ match_block_trailing_comma = true
 
 - MSRV (`rust-version`) pinned per crate to CI-tested value.
 - Crates.io readme at `.cargo/README.md`, separate from repo-root README.
-- docs.rs: `all-features = true` + `--cfg docsrs` + `doc_auto_cfg` for feature badges. Fill `keywords`/`categories`.
+- docs.rs: `all-features = true` + `--cfg docsrs` + `#![cfg_attr(docsrs, feature(doc_cfg))]` for feature badges. Fill `keywords`/`categories`.
 - `CHANGELOG.md`: Keep a Changelog + SemVer, compare-links, even at `0.0.x`.
 - Commit `Cargo.lock` for binaries. Small dep tree; `cargo audit` in CI. Workspace at >1 crate; versions in `[workspace.dependencies]`.
 

@@ -16,7 +16,7 @@ Existing project's stack wins; the default below applies only to a project start
 
 ## Tailwind
 
-- Utility-first in markup. Design tokens in the Tailwind config, not scattered arbitrary values.
+- Utility-first in markup. Design tokens in the Tailwind theme (v4: `@theme` in the CSS entry; v3: `tailwind.config.*`), not scattered arbitrary values.
 - One styling system: no parallel CSS modules / styled-components / global stylesheet beyond the Tailwind entry and genuine resets.
 - Repeated utility run → extract a component, not copy-paste and not `@apply` sprawl.
 
@@ -47,7 +47,7 @@ Existing project's stack wins; the default below applies only to a project start
 
 - [ ] Existing project: its stack untouched. New project: Astro + React + Tailwind, versions resolved at setup
 - [ ] React only inside islands, smallest scope, deliberate `client:*` directive
-- [ ] Tailwind the only styling system; tokens in config, no `@apply` sprawl
+- [ ] Tailwind the only styling system; tokens in the theme, no `@apply` sprawl
 - [ ] `tsconfig` strict, one lint/format tool, typecheck in CI, no unjustified `any`/`@ts-ignore`
 - [ ] Deps justified, lockfile committed, one package manager
 - [ ] Images via the framework pipeline, dimensions set

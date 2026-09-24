@@ -9,15 +9,15 @@ Correctness + smallest image > any rule here; comment deviations.
 - Copy only build artifact + runtime assets from builder into final stage:
 
 ```dockerfile
-FROM rust:1-slim AS builder
+FROM rust:<exact-version>-slim@sha256:<digest> AS builder
 WORKDIR /src
 COPY Cargo.toml Cargo.lock ./
 COPY src ./src
 RUN cargo build --release
 
-FROM gcr.io/distroless/cc-debian12
+FROM gcr.io/distroless/cc-debian12:nonroot@sha256:<digest>
 COPY --from=builder /src/target/release/app /app
-USER nonroot
+USER 65532:65532
 ENTRYPOINT ["/app"]
 ```
 

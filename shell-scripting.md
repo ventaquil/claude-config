@@ -62,7 +62,7 @@ Conventions for COMMITTED shell scripts (repo tooling, CI, hooks). Distinct from
 - Temp space: `mktemp` / `mktemp -d`, never hardcoded `/tmp/foo` (collisions, symlink races). Register cleanup trap immediately after creation, before first use.
 - `trap` on a signal REPLACES the previous handler, never stacks. One composed EXIT trap: register paths into an array, clean in a single handler. Handler idempotent (`rm -f`) and `return 0` — nonzero handler is a hazard under `set -e`; guard empty array before expanding.
 - Locking: `exec {fd}>"$lockfile"` + `flock -n "$fd"` — kernel-atomic, released on exit, no trap. Never `rm` the lock file in a trap (another holder's fd → a third process takes a second "exclusive" lock). Needs bash 4.1+ and util-linux (absent on macOS/BSD).
-- Fallback where `flock` absent: `mkdir "$lockdir"` (atomic EEXIST) + `trap 'rmdir "$lockdir"' EXIT`. Costs: SIGKILL/power-cut leaves a stale lock blocking all future runs; lock path must not be world-writable (pre-creation = DoS).
+- Fallback where `flock` absent: `mkdir "$lockdir"` (atomic EEXIST) + `rmdir "$lockdir"` in the single composed EXIT handler. Costs: SIGKILL/power-cut leaves a stale lock blocking all future runs; lock path must not be world-writable (pre-creation = DoS).
 - Atomic write: `mktemp` in the TARGET's own directory (cross-mount `mv` degrades to copy+unlink, reopening the window) → write → `chmod` explicitly (`mktemp` creates 0600, rename would silently strip needed access) → `mv -f`. Protects concurrent readers only; durability needs fsync, out of scope in bash.
 
 ## Security
