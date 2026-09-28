@@ -1,3 +1,11 @@
+---
+paths:
+  - "**/*.{py,pyi}"
+  - "**/pyproject.toml"
+  - "**/uv.lock"
+  - "**/requirements*.txt"
+  - "**/{setup.cfg,pytest.ini,mypy.ini,.flake8,ruff.toml,.python-version}"
+---
 # Python
 
 Idiomatic Python + PEP 8. Correctness > any rule here; comment deviations.

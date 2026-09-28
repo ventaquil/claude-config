@@ -44,20 +44,5 @@
 - Telemetry/analytics/usage reporting OFF for every tool, framework, CLI, package manager you set up (Astro, Next, Turbo, Nx, yarn, Homebrew, dotnet, Gatsby…): `DO_NOT_TRACK=1` plus that tool's own opt-out (env var, config key, or `<tool> telemetry disable`). Set in project config + the build/CI/Dockerfile stage — holds for everyone, not just a per-user file. Existing project's CI/Dockerfile → raise it, don't edit as a side effect.
 - CI workflow YAML (only when the task itself is that change — fable-mode.md side-effect-edit ban): third-party actions/orbs/includes pinned to tag or commit SHA, never a moving branch (`@main`); triggers path-filtered to what the job checks; secrets from the CI secret store, never literal in YAML; token permissions least-privilege, declared explicitly.
 
-## Go
-- Follow @go.md exactly.
-
-## Python
-- Follow @python.md exactly.
-
-## Rust
-- Follow @rust.md exactly.
-
-## Docker
-- Follow @docker.md exactly.
-
-## Shell scripting
-- Follow @shell-scripting.md exactly.
-
-## Frontend
-- Follow @frontend.md exactly.
+## Language/stack rules
+- Path-scoped in `~/.claude/rules/` (go, python, rust, docker, shell-scripting, frontend): auto-load when a matching file is read. Before creating files / starting a project with no matching file read yet, or editing a file of that kind the globs miss (extensionless shell script, git hook) → Read the matching `~/.claude/rules/<name>.md` first. Follow them.

@@ -1,3 +1,9 @@
+---
+paths:
+  - "**/*.{sh,bash,bats}"
+  - "**/.githooks/*"
+  - "**/.husky/*"
+---
 # Shell Scripting
 
 Conventions for COMMITTED shell scripts (repo tooling, CI, hooks). Distinct from CLAUDE.md rule on suggesting Fish commands to the user — that stays interactive-only.

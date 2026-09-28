@@ -1,3 +1,9 @@
+---
+paths:
+  - "**/*.go"
+  - "**/go.{mod,sum,work}"
+  - "**/.golangci.{yml,yaml,toml,json}"
+---
 # Go
 
 Idiomatic Go, Effective Go + Google Go Style Guide. Correctness > any rule here; comment deviations.

@@ -1,3 +1,13 @@
+---
+paths:
+  - "**/*.{ts,tsx,mts,cts,js,jsx,mjs,cjs,astro,vue,svelte,css,scss}"
+  - "**/package.json"
+  - "**/tsconfig*.json"
+  - "**/{astro,vite,next,tailwind,eslint,postcss,svelte}.config.*"
+  - "**/biome.json"
+  - "**/biome.jsonc"
+  - "**/.prettierrc*"
+---
 # Frontend
 
 Existing project's stack wins; the default below applies only to a project started from nothing. Correctness > any rule here; comment deviations.

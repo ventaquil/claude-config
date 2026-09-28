@@ -1,3 +1,14 @@
+---
+paths:
+  - "**/*.rs"
+  - "**/Cargo.{toml,lock}"
+  - "**/rustfmt.toml"
+  - "**/.rustfmt.toml"
+  - "**/rust-toolchain"
+  - "**/rust-toolchain.toml"
+  - "**/.cargo/config.toml"
+  - "**/clippy.toml"
+---
 # Rust
 
 Idiomatic Rust + Rust API Guidelines. Correctness > any rule here; comment deviations.

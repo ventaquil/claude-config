@@ -1,3 +1,14 @@
+---
+paths:
+  - "**/Dockerfile"
+  - "**/Dockerfile.*"
+  - "**/*.{dockerfile,Dockerfile}"
+  - "**/Containerfile"
+  - "**/Containerfile.*"
+  - "**/.dockerignore"
+  - "**/compose*.{yml,yaml}"
+  - "**/docker-compose*.{yml,yaml}"
+---
 # Docker
 
 Correctness + smallest image > any rule here; comment deviations.

@@ -7,15 +7,10 @@ and a minimal statusline. Files map 1:1 to `~/.claude/`.
 
 | Path                    | Purpose                                                                                                                                                                                          |
 |-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `CLAUDE.md`             | Global instructions entry point — imports the files below via `@` references                                                                                                                     |
+| `CLAUDE.md`             | Global instructions entry point — imports `fable-mode.md` and `model-delegation.md` via `@`; points at `rules/`                                                                                  |
 | `fable-mode.md`         | Working discipline: evidence before acting, scope, verification, autonomy, communication                                                                                                         |
 | `model-delegation.md`   | Model selection + delegation patterns (P1 advisor-executor, P2 orchestrator-worker, P3 loop)                                                                                                     |
-| `rust.md`               | Rust conventions (API guidelines, errors, testing, cargo)                                                                                                                                        |
-| `go.md`                 | Go conventions (Effective Go, error handling, concurrency, testing)                                                                                                                              |
-| `docker.md`             | Docker conventions (multi-stage builds, base images, layers, compose)                                                                                                                            |
-| `python.md`             | Python conventions (uv tooling, ruff, typing, pytest)                                                                                                                                            |
-| `shell-scripting.md`    | Shell scripting conventions for committed scripts (bash baseline, structure)                                                                                                                     |
-| `frontend.md`           | Frontend conventions (Astro + React + Tailwind for new projects, existing stack respected)                                                                                                       |
+| `rules/`                | Path-scoped language/stack rules (go, python, rust, docker, shell-scripting, frontend); load only when a matching file is read                                                                   |
 | `agents/`               | Named subagents: `architect` (Opus, plan), `developer` (Sonnet, implement), `reviewer` (Opus, adversarial verify), `grunt` (Haiku, mechanical), `prompt-writer` (Opus, LLM-facing prompts/rules) |
 | `skills/`               | Workflow skills: `debug`, `decide`, `pr-mr`, `unstick`                                                                                                                                           |
 | `statusline-command.sh` | Statusline: `ctx 30% \| session 23% \| weekly 1%` left, `Opus 5 \| high` right-aligned (context + rate-limit usage, model, effort; ctx bold, rest dim)                                           |
@@ -31,8 +26,11 @@ and a minimal statusline. Files map 1:1 to `~/.claude/`.
 Copy (or symlink) the contents into `~/.claude/`:
 
 ```sh
-cp -r CLAUDE.md fable-mode.md model-delegation.md go.md python.md rust.md docker.md shell-scripting.md frontend.md agents skills statusline-command.sh ~/.claude/
+cp -r CLAUDE.md fable-mode.md model-delegation.md rules agents skills statusline-command.sh ~/.claude/
 ```
+
+Upgrading from the flat layout: delete the old top-level `~/.claude/{go,python,rust,docker,shell-scripting,frontend}.md`
+copies after copying `rules/` — nothing imports them any more.
 
 The statusline needs a `statusLine` block in `~/.claude/settings.json` (not tracked here — machine-specific):
 
