@@ -30,6 +30,11 @@ Existing project's stack wins; the default below applies only to a project start
 - One styling system: no parallel CSS modules / styled-components / global stylesheet beyond the Tailwind entry and genuine resets.
 - Repeated utility run → extract a component, not copy-paste and not `@apply` sprawl.
 
+## Design direction
+
+- Existing app: its design system and tokens win.
+- New UI, no direction given: avoid the default look — cream/off-white background, italic accent words in headlines, numbered "01/02/03" section labels, monospace labels, pill-shaped buttons. First render still falls back on another stock style → name it to the user, pick a deliberate alternative.
+
 ## TypeScript
 
 - `tsconfig` `strict: true`; no implicit `any`, no loosening flags to silence errors.
