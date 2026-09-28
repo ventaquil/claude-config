@@ -63,4 +63,5 @@ flags (`git commit -am`, `git -C <dir> push`) still get through — the prose ru
 Instruction files are deliberately caveman-compressed (terse lines over prose) — keep new rules in the same style;
 the compression applies to Claude-facing files only, never to user-facing output. Rule files are living artifacts,
 partly evidence-tuned from real session transcripts and maintained by agent loops (plan → verify → implement →
-review), so prefer targeted edits over rewrites and keep markdown table pipes aligned.
+review), so prefer targeted edits over rewrites. Tables in instruction files stay compact (no alignment padding);
+only this README aligns table pipes. Re-run `/doctor prompt-audit` after each model release.
