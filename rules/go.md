@@ -100,7 +100,7 @@ func fetchAll(ctx context.Context, ids []string) ([]*Item, error) {
 
 - Table-driven tests in `_test.go` beside the code (`foo.go` → `foo_test.go`), package `foo` (white-box) or `foo_test` (black-box, exported API only) depending on what's under test.
 - Subtests via `t.Run(name, func(t *testing.T) {...})` — one entry per table row, name describes the case, failures point at the exact row.
-- NON-OPTIONAL: new or changed exported code gets tests in the same change. No "will add tests later."
+- New or changed exported code gets tests in the same change, not deferred.
 - `testify` (`assert`/`require`) allowed: `require` when failure should stop the test immediately (setup, preconditions), `assert` when checking multiple independent outcomes in one test.
 - `t.Parallel()` on subtests/tests that are independent and safe to interleave (no shared mutable fixture, no reliance on execution order).
 

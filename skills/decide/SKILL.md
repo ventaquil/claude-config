@@ -35,4 +35,4 @@ Prevents: one idea dressed as three ("do X, do X with flag, do X later"); survey
 
 ## 5. Proportionate
 
-Small decision → short answer: two options, three sentences each, one recommendation. Full apparatus only for expensive-to-reverse decisions. Never pad obvious decision — clear winner → say immediately, justify briefly.
+Small decision → short answer: two options, a few sentences each, one recommendation. Full apparatus only for expensive-to-reverse decisions. Never pad obvious decision — clear winner → say immediately, justify briefly.

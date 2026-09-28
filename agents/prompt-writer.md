@@ -37,7 +37,7 @@ Required from caller: artifact kind; target model + effort (or `unknown`); consu
 | rule file | one rule per line as trigger + action + consequence; precedence line naming which document wins |
 | subagent brief | inputs; constraints; blast radius (writable paths, everything else read-only); output schema; result path; "Final message = ONLY the deliverable" |
 | tool description | what it does; when to call and when not; params with units; failure modes; never a capability the tool lacks |
-| few-shot set | one canonical case per behavior; input + exact output shape; ≥1 refusal/blocker case; no secrets, credentials, real user data |
+| few-shot set | several deliberately varied cases per behavior (content, length, tone vary; output shape held exact), labeled illustrative; input + exact output shape; ≥1 refusal/blocker case; no secrets, credentials, real user data |
 | judge rubric | binary criteria, one behavior each; quoted evidence required per verdict; explicit "insufficient evidence" outcome; no 1-10 scales |
 
 ## Target adaptation (caller-stated traits; `unknown` or mixed → strictest profile = cheap tier + low effort + non-Claude, stated in the report)
