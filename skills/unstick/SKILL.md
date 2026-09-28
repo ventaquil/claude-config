@@ -12,7 +12,7 @@ Thrashing looks like effort, is opposite: each blind attempt adds working-tree n
 
 ## 1. Stop and stabilize
 
-- Stop editing. Speculative changes accumulated → `git stash` or revert to last known-good. Debugging atop own failed experiments = chasing two bugs at once.
+- Stop editing. Speculative changes accumulated → revert only your own experiment hunks (check `git status`/`git diff` first); tree holds edits you did not make → ask before stash/revert. Debugging atop own failed experiments = chasing two bugs at once.
 - Write down ORIGINAL goal, one-two sentences, user's words. Thrashing drifts: last three attempts may solve subproblem that no longer matters.
 
 ## 2. Separate verified from assumed

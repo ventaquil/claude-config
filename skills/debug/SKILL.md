@@ -3,7 +3,7 @@ name: debug
 description: >-
   Evidence-driven root-cause debugging. Use when investigating any bug, failure, crash, flaky test, wrong output,
   regression, or unexplained behavior — BEFORE proposing or applying any fix. Reproduce first, falsify hypotheses,
-  fix root cause (not symptom), prove fix with test.
+  fix root cause (not symptom), prove fix by re-running the repro (regression test where the repo keeps tests).
 ---
 
 # Root-cause debugging
@@ -37,7 +37,7 @@ Goal never "make error go away". Goal: understand exactly why system misbehaves,
 
 ## Phase 5 — Prove
 
-- Re-run exact Phase-1 repro, show passing. Where practical: encode repro as regression test failing without fix, passing with — run both ways, prove test actually bites.
+- Re-run exact Phase-1 repro, show passing. Where practical and the repo already keeps tests for this change kind (fable-mode.md Scope): encode repro as regression test failing without fix, passing with — run both ways, prove test actually bites; else keep repro as scratch check, not committed.
 - Run surrounding suite; check fix broke nothing.
 
 ## Report

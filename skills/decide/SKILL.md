@@ -4,6 +4,7 @@ description: >-
   Structured decision-making for design, architecture, library, or approach choices. Use when user asks
   "which/how should I", "A vs B", "what's the best way to", or when nontrivial task has several viable approaches
   and picking one shapes everything after. Genuinely distinct options, steelman each, commit to one recommendation.
+  Not when the user named a reference to imitate or already stated the choice.
 ---
 
 # Decide — options, steelmen, one recommendation

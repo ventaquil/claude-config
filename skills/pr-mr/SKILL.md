@@ -17,7 +17,7 @@ Hard rule (from global CLAUDE.md, no exceptions, not even a dry run): **Claude n
 
 - `git remote -v` — detect the real remote name (do not hardcode `origin`); several remotes → ask which one. Nothing about the hosting service is assumed: every fact used below comes from the repo at runtime.
 - `git branch --show-current` — empty means detached HEAD: stop, a request needs a named source branch.
-- Resolve the base branch without guessing: `git symbolic-ref refs/remotes/<remote>/HEAD` → strip to a name; fall back to the HEAD line of `git remote show <remote>`; then to a conventional default name that actually exists in `git branch -r` (`main`, `master`, `develop`, `dev`). Zero or several candidates → ask. If the current branch resolves to the base, stop.
+- Resolve the base branch without guessing: `git symbolic-ref refs/remotes/<remote>/HEAD` → strip to a name; fall back to the HEAD line of `git remote show <remote>`; then to a conventional default name that actually exists in `git branch -r` (`main`, `master`, `develop`, `dev`). Zero or several candidates → ask. If the current branch resolves to the base → ask which base to target.
 - `git status --porcelain` — if the tree is dirty, surface it and ask commit / stash / proceed. Never auto-commit or auto-stash; the request reflects committed history only.
 
 ## 2. Gather the change
@@ -25,7 +25,7 @@ Hard rule (from global CLAUDE.md, no exceptions, not even a dry run): **Claude n
 - `git fetch <remote> <base>` first so the comparison is fresh.
 - Upstream: `git rev-parse --abbrev-ref --symbolic-full-name @{u}`. If none, the push must use `-u <remote> <branch>` and diffs are taken against `<base>`, not `@{u}`. If it exists, `git rev-list --left-right --count <remote>/<branch>...<branch>` — surface diverged/behind state before drafting (a pull/rebase is the user's decision).
 - Size, then read: `git diff <remote>/<base>...<branch> --stat`, then the full three-dot diff `git diff <remote>/<base>...<branch>` (three-dot = merge-base diff, matches what a review UI shows). Commits: `git log --no-merges <remote>/<base>..<branch>` (titles + full bodies). Zero commits → stop.
-- Read the actual messages and diff content, not just titles. An issue/ticket reference is included **only if genuinely present**: from a trailer or inline reference in the branch's own commit messages, or from the repo's existing commit-message convention (`git log <base>` — reuse its exact key and format verbatim, never invent a tracker name or a key it doesn't use). List all if several. If only the branch name encodes a reference, confirm with the user first. Never fabricate one.
+- Read the actual messages and diff content, not just titles. An issue/ticket reference is included **only if genuinely present** in the branch's own commit messages (trailer or inline). Its format is copied from the repo's existing commit-message convention (`git log <base>` — exact key form verbatim, never invent a tracker name or a key form it doesn't use); never take a reference itself from `git log <base>`. List all if several. If only the branch name encodes a reference, confirm with the user first. Never fabricate one.
 
 ## 3. Draft (always English)
 
@@ -91,17 +91,10 @@ Rules:
 - Pushing the same source branch again updates an existing request rather than duplicating it. Claude can't query the remote — say so and tell the user to verify in the UI.
 - Keep the command minimal to what was asked — no assignee/reviewer options unless requested. Never suggest a hosting-service CLI or raw token API calls as an "easier" path, and never run one.
 
-Final output is exactly three parts: (a) the fenced description block, (b) the fenced push command, (c) one sentence stating Claude will not run it — the user runs it, opens the request, and pastes the description.
+Final output is exactly four parts: (a) the title line, (b) the fenced description block, (c) the fenced push command, (d) one sentence stating Claude will not run it — the user runs it, opens the request, and pastes the description.
 
 ## Edge cases
 
-- Zero commits vs base (already merged / freshly cut) → stop, nothing to open.
-- Current branch == base → ask which base to target.
-- Detached HEAD → stop, need a named source branch.
 - Base undetectable (fresh/shallow clone, no symref, no conventional default branch present) → ask; don't guess from reflog.
-- Branch behind/diverged from its own upstream → surface before drafting; pull/rebase is the user's call.
-- Merge commits in history → `--no-merges` for logs and summaries.
-- No issue reference anywhere → omit the line. Branch-name key only → confirm first. Several references → list all.
 - Shell-unsafe / over-long title → escape, cap, or fall back to the web form.
 - Large diff / many files → `--stat` first, summarize by area, don't enumerate every file.
-- Branch may already have an open request → can't verify; the push updates rather than duplicates — user confirms in the UI.
