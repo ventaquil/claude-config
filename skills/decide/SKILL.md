@@ -20,6 +20,7 @@ Prevents: one idea dressed as three ("do X, do X with flag, do X later"); survey
 
 - Before comparing, check reality: grep codebase for how similar problems already solved, check actual dependency versions, read specific APIs involved. Recommendation on misremembered API = worthless.
 - External libraries / fast-moving tools → verify current state (docs, changelog, web), not training-data recall.
+- Repo has ADR dir (probe list: `~/.claude/skills/adr/SKILL.md` step 1) → grep it for prior decisions in this area. Accepted ADR covering it = binding precedent; recommendation overturning it = superseding ADR (/adr supersede), named in the verdict.
 
 ## 3. Generate 2–4 genuinely distinct options
 
@@ -36,3 +37,5 @@ Prevents: one idea dressed as three ("do X, do X with flag, do X later"); survey
 ## 5. Proportionate
 
 Small decision → short answer: two options, a few sentences each, one recommendation. Full apparatus only for expensive-to-reverse decisions. Never pad obvious decision — clear winner → say immediately, justify briefly.
+
+Decision passes ADR threshold (`~/.claude/rules/adr.md` When to write one, e.g. expensive to reverse) and repo has ADR dir, or user asks → after the verdict, offer in one line to record it via /adr. Never write the ADR from /decide — /decide stays side-effect-free; /adr runs only once the user accepts.

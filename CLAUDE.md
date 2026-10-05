@@ -9,6 +9,11 @@
 - Instruction artifacts models execute (agent defs, skills, rule files, subagent briefs, system prompts, tool descriptions, judge rubrics) → delegate to `prompt-writer`; main loop writes the brief, verifies the result.
 - Follow @model-delegation.md for model selection, delegation patterns, effort-saving rules.
 
+## Decision records
+- Repo has ADR dir (probe list: `~/.claude/skills/adr/SKILL.md` step 1) → before changing an area, grep its ADRs covering that area.
+- Change contradicts an Accepted ADR → stop, name the ADR, propose a superseding ADR (/adr); user decides. Never silently override, never edit the old ADR to match.
+- Recording/transitioning decisions → /adr skill; invariants in `~/.claude/rules/adr.md`, auto-load on matching ADR file read. Editing an ADR file the globs miss (custom dir via `.adr-dir`, nonstandard path) → Read `~/.claude/rules/adr.md` first.
+
 ## Git commits
 - Run `git log --oneline -10` first; match repo style. Ambiguous or first commit → ask.
 - One commit = one concern, history linear (no merge commits, no fixup/undo pairs). Dependency/library change, tooling change, packaging = separate commits. Message never a placeholder.

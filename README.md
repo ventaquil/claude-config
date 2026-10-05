@@ -10,9 +10,9 @@ and a minimal statusline. Files map 1:1 to `~/.claude/`.
 | `CLAUDE.md`             | Global instructions entry point — imports `fable-mode.md` and `model-delegation.md` via `@`; points at `rules/`                                                                                  |
 | `fable-mode.md`         | Working discipline: evidence before acting, scope, verification, autonomy, communication                                                                                                         |
 | `model-delegation.md`   | Model selection + delegation patterns (P1 advisor-executor, P2 orchestrator-worker, P3 loop)                                                                                                     |
-| `rules/`                | Path-scoped language/stack rules (go, python, rust, docker, shell-scripting, frontend); load only when a matching file is read                                                                   |
+| `rules/`                | Path-scoped rules, loaded only when a matching file is read: language/stack (go, python, rust, docker, shell-scripting, frontend) and `adr` (ADR invariants)                                     |
 | `agents/`               | Named subagents: `architect` (Opus, plan), `developer` (Sonnet, implement), `reviewer` (Opus, adversarial verify), `grunt` (Haiku, mechanical), `prompt-writer` (Opus, LLM-facing prompts/rules) |
-| `skills/`               | Workflow skills: `debug`, `decide`, `pr-mr`, `unstick`                                                                                                                                           |
+| `skills/`               | Workflow skills: `adr` (record/supersede ADRs), `debug`, `decide`, `pr-mr`, `unstick`                                                                                                            |
 | `statusline-command.sh` | Statusline: `ctx 30% \| session 23% \| weekly 1%` left, `Opus 5.5 \| high` right-aligned (context + rate-limit usage, model, effort; ctx bold, rest dim)                                         |
 
 ## External skills
