@@ -23,7 +23,13 @@ and a minimal statusline. Files map 1:1 to `~/.claude/`.
 
 ## Install
 
-Copy (or symlink) the contents into `~/.claude/`:
+Preferred: let Claude Code install it and merge it with what you already have. Start a session and prompt:
+
+```text
+Check https://github.com/ventaquil/claude-config and install it in my config; adapt it to my working routine.
+```
+
+Manual: copy (or symlink) the contents into `~/.claude/`:
 
 ```sh
 cp -r CLAUDE.md fable-mode.md model-delegation.md rules agents skills statusline-command.sh ~/.claude/
