@@ -64,6 +64,17 @@ flags (`git commit -am`, `git -C <dir> push`) still get through — the prose ru
 }
 ```
 
+The P1 advisor pattern in `model-delegation.md` uses Claude Code's native
+[advisor tool](https://code.claude.com/docs/en/advisor), so `~/.claude/settings.json` should also set the advisor model:
+
+```json
+"advisorModel": "opus"
+```
+
+The advisor stays off without notice when `DO_NOT_TRACK`, `DISABLE_TELEMETRY`,
+`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` or `DISABLE_GROWTHBOOK` is set in Claude Code's own environment, or
+off the Anthropic API. P1 then falls back to spawning the `architect` agent.
+
 ## Conventions
 
 Instruction files are deliberately caveman-compressed (terse lines over prose) — keep new rules in the same style;

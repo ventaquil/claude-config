@@ -65,11 +65,14 @@ claude -p "$BRIEF" \
 ## P1: ADVISOR-EXECUTOR
 
 - Executor = main-loop model (Opus 5.5 default; Sonnet if session runs Sonnet). Main loop, all turns, all tools.
-- Advisor = `architect` agent (Opus `--effort high`), or `reviewer` (Opus) directly for routine verify/judge. On-demand spawn.
-- Call when: stuck 2+ tries, irreversible action, design fork, result smells wrong. Low-effort executor may stop consulting — call advisor on these triggers, don't rely on noticing.
-- Advisor gets compressed problem + min context, NOT transcript. May run short grounding loop: cap ~5 tool calls + budget, then answer.
-- Returns short directive advice per contract.
+- Advisor = native advisor tool (`advisorModel` `opus`; per session `/advisor <model>`, `--advisor <model>`). Reads full transcript incl. every tool call/result; executor applies guidance. Pairing: advisor ranks ≥ main model, else silently not attached (Opus 5/5.5 main → Opus 5+ or Fable only). Fable advisor only per SELECT 2 (explicit user ask) — bills Fable rates/credits.
+- Call when: before locking a plan or acting on multi-file / irreversible / design-fork work; same test/compile error fails twice or stuck 2+ tries (root cause vs rabbit hole); before declaring nontrivial work done or staging a commit; result smells wrong. Nothing forces calls — low-effort executor may stop consulting: call on these triggers, don't rely on noticing.
+- Silent on routine turns (plain bash, reads, mechanical edits): every call re-reads full transcript at advisor rates, uncached.
+- Advice vs evidence: own evidence contradicts a specific claim (step fails, file contents disagree) → evidence wins; surface the conflict, never silently obey or silently ignore.
 - Budget ≤ 3 calls/task. More = mis-scoped → stop, replan.
+- Additive: never replaces fable-mode.md Verification reviewer gate for nontrivial diffs.
+- Subagents inherit advisor (pairing re-checked vs their model) → worker briefs (`grunt`, mechanical `developer` sweeps) say: don't consult the advisor unless blocked.
+- Fallback — native advisor missing or failing (silently off on: non-Anthropic API — Bedrock/Vertex/Foundry, gateway not forwarding it; `DO_NOT_TRACK=1`/`DISABLE_TELEMETRY`/`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`/`DISABLE_GROWTHBOOK` in Claude Code's env; `CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1`; advisor ranks below main. Transcript: `Advisor unavailable (<code>)` / `Advisor declined to advise`) or outside Claude Code's harness → spawn `architect` (Opus `--effort high`), or `reviewer` (Opus) for routine verify/judge. Gets compressed problem + min context, NOT transcript; grounding loop cap ~5 tool calls + budget, then short directive advice per contract. Same triggers, same budget.
 
 Use: single long task, mostly routine, rare hard decision.
 
