@@ -18,6 +18,7 @@ Pick model + pattern + spawn sub-session. Goal: max quality/dollar, zero hangs, 
 - `reviewer` (Opus default, effort per EFFORT scale, read-only): adversarial verify/judge, confirm/refute, checks fabricated values. → P3 verify-diff, review loops.
 - `grunt` (Haiku medium, see EFFORT low + SELECT 6): fully-specified mechanical sweeps, extract, format, classify, triage pre-pass. Copies, never invents; caller verifies.
 - `prompt-writer` (Opus high, edits): authors LLM-facing artifacts — system prompts, agent defs, SKILL.md, rule files, subagent briefs, tool descriptions, few-shot sets, judge rubrics; grounds in sibling artifacts, adapts wording to the target model/effort's failure modes, BLOCKER instead of inventing. → instruction/prompt authoring + rewrite tasks.
+- `web-perf-auditor` (Sonnet medium, repo read-only; Bash for Lighthouse/Playwright/temp servers + quick tunnel): PageSpeed/Lighthouse/Core Web Vitals baseline, artifact-vs-real classification, same-source before/after verification per `pagespeed` skill; returns measured findings + per-audit fix plan + owner-gate items, never edits. → perf audit/verify lanes; fixes go to `developer`, code check to `reviewer`.
 
 ## EFFORT (auto-scale per task; caller overrides agent frontmatter default each call)
 
