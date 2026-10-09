@@ -11,8 +11,9 @@
 
 ## Decision records
 - Repo has ADR dir (probe list: `~/.claude/skills/adr/SKILL.md` step 1) → before changing an area, grep its ADRs covering that area.
-- Change contradicts an Accepted ADR → stop, name the ADR, propose a superseding ADR (/adr); user decides. Never silently override, never edit the old ADR to match.
-- Recording/transitioning decisions → /adr skill; invariants in `~/.claude/rules/adr.md`, auto-load on matching ADR file read. Editing an ADR file the globs miss (custom dir via `.adr-dir`, nonstandard path) → Read `~/.claude/rules/adr.md` first.
+- Change contradicts an Accepted ADR → stop before editing, name the ADR (path + title), propose a superseding ADR (/adr); user decides. Never silently override, never edit the old ADR to match the code.
+- ADR invariants: path-scoped `~/.claude/rules/adr.md`, auto-loads when a matching ADR file is read. Writing/editing an ADR file the globs miss (custom dir via `.adr-dir`, nonstandard path) → Read it first. Follow it; wins over "Docs follow the change" for ADR commit placement.
+- Recording/transitioning/finding decisions → /adr skill (procedure; rule file wins on conflict).
 
 ## Git commits
 - Run `git log --oneline -10` first; match repo style. Ambiguous or first commit → ask.
